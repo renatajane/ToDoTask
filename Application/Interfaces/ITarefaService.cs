@@ -15,7 +15,7 @@ namespace Application.Interfaces
 
         Task Create(TarefaCreateDto task);
 
-        Task Update(TarefaCreateDto task);
+        Task Update(TarefaCreateDto task, int id);
 
         Task DeleteById(int id);
     }

@@ -46,9 +46,10 @@ namespace Application.Service
             return dto;
         }
 
-        public async Task Update(TarefaCreateDto tarefa)
+        public async Task Update(TarefaCreateDto tarefa, int id)
         {
-            var entity = mapper.Map<TarefaDomain>(tarefa);
+            var entity = await tarefaRepository.GetById(id);
+            entity = mapper.Map<TarefaDomain>(tarefa);
             await tarefaRepository.Update(entity);
         }
     }
