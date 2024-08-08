@@ -3,6 +3,7 @@ using Application.Mappings;
 using Application.Service;
 using Infra.Data;
 using Infra.Data.Repositories;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,9 +15,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<ApplicationDbContext>(Options => 
-Options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), 
-opt => opt.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+// SqlServer
+//builder.Services.AddDbContext<ApplicationDbContext>(Options => 
+//Options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), 
+//opt => opt.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+
+// PostgreSql
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+options.UseNpgsql(builder.Configuration.GetConnectionString("ConnectionStringPostgreSql")));
 
 builder.Services.AddScoped<ITarefaRepository, TarefaRepository>();
 builder.Services.AddScoped<ITarefaService, TarefaService>();

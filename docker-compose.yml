@@ -6,6 +6,8 @@ services:
     build:
       context: .
       dockerfile: API/Dockerfile
+    networks:
+      - my-network
 
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2019-latest
@@ -15,8 +17,40 @@ services:
       ACCEPT_EULA: "Y"
     ports:
       - "1433:1433"
+    networks:
+      - my-network
     volumes:
       - sqlserverdata:/var/opt/mssql
 
+  postgresql:
+    image: postgres:16
+    environment: 
+      POSTGRES_DB: dbPostgreSql
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: adminpass
+    ports:
+      - "5432:5432"
+    networks:
+      - my-network
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@email.com
+      PGADMIN_DEFAULT_PASSWORD: passw@rd
+    ports:
+      - "5050:80"
+    networks:
+      - my-network
+    depends_on:
+      - postgresql
+
+networks:
+  my-network:
+
 volumes:
   sqlserverdata:
+  db-data:
+

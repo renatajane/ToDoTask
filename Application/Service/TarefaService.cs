@@ -23,11 +23,22 @@ namespace Application.Service
 
         public async Task Create(TarefaCreateDto tarefa)
         {
+
+            if (string.IsNullOrWhiteSpace(tarefa.Title))
+            {
+                throw new Exception("Preencha o título");
+            }
+            if (string.IsNullOrWhiteSpace(tarefa.Description))
+            {
+                throw new Exception("Preencha a descrição");
+            }
+
             var entity = mapper.Map<TarefaDomain>(tarefa);
-            entity.CreatedAt = DateTime.Now;
+            entity.CreatedAt = DateTime.UtcNow; 
+
             if (tarefa.IsCompleted == true)
             {
-                entity.CompletedAt = DateTime.Now;
+                entity.CompletedAt = DateTime.UtcNow;
             }
             await tarefaRepository.Create(entity);
         }
@@ -70,7 +81,7 @@ namespace Application.Service
             entity = mapper.Map(tarefa, entity);
             if (entity.IsCompleted)
             {
-                entity.CompletedAt = DateTime.Now;
+                entity.CompletedAt = DateTime.UtcNow;
             }
             else
             {
@@ -94,7 +105,7 @@ namespace Application.Service
 
                 if (tarefa.IsCompleted.Value)
                 {
-                    entity.CompletedAt = DateTime.Now;
+                    entity.CompletedAt = DateTime.UtcNow;
                 }
                 else
                 {
