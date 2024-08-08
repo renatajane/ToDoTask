@@ -12,8 +12,9 @@ namespace Application.Mappings
     {
         public DomainToDtoMapping()
         {
-            CreateMap<Domain.TarefaDomain, TarefaReadDto>().ReverseMap();
-            CreateMap<Domain.TarefaDomain, TarefaCreateDto>().ReverseMap();
+            CreateMap<Domain.TarefaDomain, TarefaReadDto>();
+            CreateMap<TarefaCreateDto, Domain.TarefaDomain>()
+                .ForMember(src => src.Id, opt => opt.Ignore());
         }
     }
 }

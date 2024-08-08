@@ -44,7 +44,14 @@ namespace API.Controllers
             return Ok();
         }
 
-        [HttpDelete("{id:int}")]
+        [HttpPatch("{id:int}")]
+        public async Task<ActionResult> Patch(TarefaCreateDto tarefaCreateDto, int id)
+        { 
+            await tarefaService.Patch(tarefaCreateDto, id);
+            return Ok();
+        }
+
+            [HttpDelete("{id:int}")]
         public async Task<ActionResult> Delete(int id)
         {
             await tarefaService.DeleteById(id);

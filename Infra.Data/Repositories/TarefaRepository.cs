@@ -36,7 +36,7 @@ namespace Infra.Data.Repositories
             return entities;
         }
 
-        public async Task<TarefaDomain> GetById(int id)
+        public async Task<TarefaDomain?> GetById(int id)
         {
            var entity = await applicationDbContext.Tarefa.FindAsync(id);
            return entity;

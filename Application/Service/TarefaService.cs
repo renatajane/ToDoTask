@@ -24,11 +24,21 @@ namespace Application.Service
         public async Task Create(TarefaCreateDto tarefa)
         {
             var entity = mapper.Map<TarefaDomain>(tarefa);
+            entity.CreatedAt = DateTime.Now;
+            if (tarefa.IsCompleted == true)
+            {
+                entity.CompletedAt = DateTime.Now;
+            }
             await tarefaRepository.Create(entity);
         }
 
         public async Task DeleteById(int id)
         {
+            var entity = tarefaRepository.GetById(id);
+            if (entity == null)
+            {
+                throw new Exception("Not found.");
+            }
             await tarefaRepository.DeleteById(id);
         }
 
@@ -42,6 +52,10 @@ namespace Application.Service
         public async Task<TarefaReadDto> GetById(int id)
         {
             var entity = await tarefaRepository.GetById(id);
+            if (entity == null)
+            {
+                throw new Exception("Not found." + id);
+            }
             var dto = mapper.Map<TarefaReadDto>(entity);
             return dto;
         }
@@ -49,7 +63,49 @@ namespace Application.Service
         public async Task Update(TarefaCreateDto tarefa, int id)
         {
             var entity = await tarefaRepository.GetById(id);
-            entity = mapper.Map<TarefaDomain>(tarefa);
+            if (entity == null)
+            {
+                throw new Exception("Not found." + id);
+            }
+            entity = mapper.Map<TarefaDomain>(tarefa); 
+            entity.Id = id;
+            if (entity.IsCompleted)
+            {
+                entity.CompletedAt = DateTime.Now;
+            }
+            await tarefaRepository.Update(entity);
+        }
+
+        public async Task Patch(TarefaCreateDto tarefa, int id)
+        {
+            var entity = await tarefaRepository.GetById(id);
+
+            if (entity == null)
+            {
+                throw new Exception("Not found." + id);
+            }
+
+            if (tarefa.IsCompleted != null)
+            {
+                entity.IsCompleted = tarefa.IsCompleted.Value;
+                if (tarefa.IsCompleted.Value)
+                {
+                    entity.CompletedAt = DateTime.Now;
+                }
+                else
+                {
+                    entity.CompletedAt = null;
+                }
+            }
+            if (!string.IsNullOrWhiteSpace(tarefa.Title))
+            {
+                entity.Title = tarefa.Title;
+            }
+            if (!string.IsNullOrWhiteSpace(tarefa.Description))
+            {
+                entity.Description = tarefa.Description;
+            }
+
             await tarefaRepository.Update(entity);
         }
     }

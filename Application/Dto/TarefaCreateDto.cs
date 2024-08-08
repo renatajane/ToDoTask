@@ -17,10 +17,7 @@ namespace Application.Dto
         [MinLength(2)]
         public string? Description { get; set; }
 
-        public bool IsCompleted { get; set; }
+        public bool? IsCompleted { get; set; }
 
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
-        public DateTime? CompletedAt { get; set; }
     }
 }

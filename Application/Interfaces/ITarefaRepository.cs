@@ -10,7 +10,7 @@ namespace Application.Interfaces
     {
         Task<IEnumerable<Domain.TarefaDomain>> GetAll();
 
-        Task<Domain.TarefaDomain>GetById(int id);
+        Task<Domain.TarefaDomain?>GetById(int id);
 
         Task Create(Domain.TarefaDomain task);
 
