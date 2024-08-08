@@ -26,8 +26,16 @@ namespace Infra.Data.Repositories
 
         public async Task  DeleteById(int id)
         {
-            applicationDbContext.Remove(id);
-            await applicationDbContext.SaveChangesAsync();
+            var entity = await applicationDbContext.Tarefa.FindAsync(id);
+            if (entity != null)
+            {
+                applicationDbContext.Remove(entity);
+                await applicationDbContext.SaveChangesAsync();
+            }
+            else
+            {
+                throw new Exception("Entity not found.");
+            }
         }
 
         public async Task<IEnumerable<TarefaDomain>> GetAll()

@@ -14,7 +14,9 @@ namespace Application.Mappings
         {
             CreateMap<Domain.TarefaDomain, TarefaReadDto>();
             CreateMap<TarefaCreateDto, Domain.TarefaDomain>()
-                .ForMember(src => src.Id, opt => opt.Ignore());
+                 .ForMember(dest => dest.Id, opt => opt.Ignore())
+                 .ForMember(dest => dest.CreatedAt, opt => opt.Ignore())
+                 .ForMember(dest => dest.CompletedAt, opt => opt.Ignore());
         }
     }
 }

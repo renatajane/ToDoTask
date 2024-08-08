@@ -9,12 +9,8 @@ namespace Application.Dto
 {
     public class TarefaCreateDto
     {
-        [Required]
-        [MinLength(2)]
         public string? Title { get; set; }
 
-        [Required]
-        [MinLength(2)]
         public string? Description { get; set; }
 
         public bool? IsCompleted { get; set; }

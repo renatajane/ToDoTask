@@ -34,7 +34,7 @@ namespace Application.Service
 
         public async Task DeleteById(int id)
         {
-            var entity = tarefaRepository.GetById(id);
+            var entity = await tarefaRepository.GetById(id);
             if (entity == null)
             {
                 throw new Exception("Not found.");
@@ -67,11 +67,14 @@ namespace Application.Service
             {
                 throw new Exception("Not found." + id);
             }
-            entity = mapper.Map<TarefaDomain>(tarefa); 
-            entity.Id = id;
+            entity = mapper.Map(tarefa, entity);
             if (entity.IsCompleted)
             {
                 entity.CompletedAt = DateTime.Now;
+            }
+            else
+            {
+                entity.CompletedAt = null;
             }
             await tarefaRepository.Update(entity);
         }
@@ -88,6 +91,7 @@ namespace Application.Service
             if (tarefa.IsCompleted != null)
             {
                 entity.IsCompleted = tarefa.IsCompleted.Value;
+
                 if (tarefa.IsCompleted.Value)
                 {
                     entity.CompletedAt = DateTime.Now;
