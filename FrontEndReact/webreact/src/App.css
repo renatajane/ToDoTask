@@ -1,0 +1,132 @@
+/* Estilo para o contêiner principal */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fffde7, #fdd835);
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Estilo para o título da aplicação */
+.app-title {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+/* Estilo para o formulário de tarefas */
+.task-form {
+  width: 100%;
+  max-width: 600px;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+
+.task-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.task-form label {
+  font-weight: bold;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.task-form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.task-form button {
+  background-color: #fbc02d;
+  color: #ffffff;
+  border: none;
+  padding: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+  width: 100%;
+}
+
+.task-form button:hover {
+  background-color: #e0a800;
+}
+
+@media (max-width: 600px) {
+  .task-form {
+    padding: 10px;
+  }
+
+  .task-form input,
+  .task-form button {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+}
+
+/* Estilo para a lista de tarefas */
+.task-list {
+  width: 100%;
+  max-width: 600px;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para cada item da lista de tarefas */
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.task-item:last-child {
+  border-bottom: none;
+}
+
+.task-item.completed {
+  text-decoration: line-through;
+  color: #888;
+}
+
+/* Estilo para os botões */
+button {
+  background-color: #fbc02d;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+  display: block;
+  margin: 0 auto;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
