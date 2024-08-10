@@ -1,28 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 import TaskItem from './TaskItem';
 
-const TaskList = () => {
-  const [tasks, setTasks] = useState([]);
-
-  const fetchTasks = async () => {
-    const response = await axios.get('https://localhost:56429/api/tasks',
-      {
-        headers: {
-          'accept': '*/*',
-          'Content-Type': 'application/json'
-        }
-      }
-    )
-    setTasks(response.data);
-  };
-
-  useEffect(() => {
-    fetchTasks();
-  }, []);
-
+const TaskList = ({ tasks, fetchTasks }) => {
   return (
-    <ul>
+    <ul className="task-list">
       {tasks.map((task) => (
         <TaskItem key={task.id} task={task} fetchTasks={fetchTasks} />
       ))}

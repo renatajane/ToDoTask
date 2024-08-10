@@ -5,9 +5,10 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #fffde7, #fdd835);
+  background: linear-gradient(135deg, #f0f4f8, #e3e9f0); 
   font-family: 'Roboto', sans-serif;
 }
+
 
 /* Estilo para o título da aplicação */
 .app-title {
@@ -20,73 +21,81 @@
 /* Estilo para o formulário de tarefas */
 .task-form {
   width: 100%;
-  max-width: 600px;
+  max-width: 640px;
   background: #ffffff;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
+  margin: 0 auto;
   box-sizing: border-box;
 }
 
-.task-form form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
+/* Estilo para os rótulos e inputs do formulário */
 .task-form label {
+  display: block;
   font-weight: bold;
   margin-bottom: 8px;
-  display: block;
+  font-size: 1rem; 
 }
 
-.task-form input {
+.task-form input[type="text"] {
   width: 100%;
   padding: 10px;
   margin-bottom: 12px;
   border: 1px solid #ddd;
   border-radius: 4px;
-  font-size: 1rem;
+  font-size: 1rem; 
   box-sizing: border-box;
 }
 
+/* Estilo para a mensagem de erro */
+.error-message {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
+
+/* Estilo para o container do checkbox e rótulo */
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px; 
+}
+
+/* Estilo para o checkbox e rótulo */
+.checkbox-container label {
+  margin: 0 0 0 10px; 
+  font-size: 1rem; 
+}
+
+/* Estilo para o botão do formulário */
 .task-form button {
-  background-color: #fbc02d;
+  background-color: #64b5f6;
   color: #ffffff;
   border: none;
   padding: 12px;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 1rem; 
   transition: background-color 0.3s;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .task-form button:hover {
-  background-color: #e0a800;
-}
-
-@media (max-width: 600px) {
-  .task-form {
-    padding: 10px;
-  }
-
-  .task-form input,
-  .task-form button {
-    font-size: 0.9rem;
-    padding: 8px;
-  }
+  background-color: #42a5f5; 
 }
 
 /* Estilo para a lista de tarefas */
 .task-list {
   width: 100%;
-  max-width: 600px;
+  max-width: 640px; /* Ajuste para combinar com o max-width do formulário */
   background: #ffffff;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  box-sizing: border-box;
 }
 
 /* Estilo para cada item da lista de tarefas */
@@ -107,26 +116,122 @@
   color: #888;
 }
 
-/* Estilo para os botões */
-button {
-  background-color: #fbc02d;
+/* Estilo para os botões na lista de tarefas */
+.task-actions {
+  display: flex;
+  gap: 10px; 
+}
+
+/* Estilo para o botão "Complete" */
+.complete-button {
+  background-color: #81d4fa; 
   color: #ffffff;
   border: none;
   padding: 10px 20px;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 1rem; 
+  transition: background-color 0.3s;
+}
+
+.complete-button:hover {
+  background-color: #4fc3f7; 
+}
+
+.completed-button {
+  background-color: #b0bec5; 
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: not-allowed; 
+  font-size: 1rem;
+}
+
+/* Estilo para o botão "Delete" */
+.delete-button {
+  background-color: #C62828; 
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem; 
+  transition: background-color 0.3s;
+}
+
+.delete-button:hover {
+  background-color: #B71C1C; 
+}
+
+.edit-button {
+  background-color: #FFC107; 
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem; 
+  transition: background-color 0.3s;
+  }
+
+  .edit-button:hover {
+    background-color: #FFB300; 
+  }
+
+  /* Estilo para o formulário de edição */
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Espaçamento entre os elementos */
+}
+
+/* Estilo para os rótulos do formulário */
+.edit-form label {
+  font-weight: bold;
+  margin-bottom: 4px; /* Espaçamento abaixo dos rótulos */
+  font-size: 1rem;
+}
+
+/* Estilo para os inputs do formulário */
+.edit-form input[type="text"] {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+/* Estilo para o container dos botões do formulário */
+.form-buttons {
+  display: flex;
+  gap: 10px; /* Espaçamento entre os botões */
+}
+
+/* Estilo para os botões do formulário */
+.edit-form button {
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
   font-size: 1rem;
   transition: background-color 0.3s;
-  display: block;
-  margin: 0 auto;
 }
 
-button:hover {
-  background-color: #0056b3;
+.save-button {
+  background-color: #64b5f6;
+  color: #ffffff;
+  border: none;
 }
 
-.error-message {
-  color: red;
-  font-size: 0.9rem;
-  margin-top: 5px;
+.save-button:hover {
+  background-color: #42a5f5;
+}
+
+.cancel-button {
+  background-color: #b0bec5;
+  color: #ffffff;
+  border: none;
+}
+
+.cancel-button:hover {
+  background-color: #9e9e9e;
 }

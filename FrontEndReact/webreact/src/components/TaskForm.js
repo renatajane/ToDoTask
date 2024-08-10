@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 
 const TaskForm = ({ fetchTasks }) => {
   const [title, setTitle] = useState('');
@@ -32,31 +31,26 @@ const TaskForm = ({ fetchTasks }) => {
       return;
     }
 
-    // Enviar dados se válido
-    await axios.post(
-      'https://localhost:56429/api/tasks', 
-      {
-        title,
-        description,
-        isCompleted
-      },
-      {
+    try {
+      await fetch('https://localhost:56429/api/tasks', {
+        method: 'POST',
         headers: {
-          'accept': '*/*',
-          'Content-Type': 'application/json'
-        }
-      }
-    )
-    .then(response => {
-      console.log('Resposta:', response.data);
-    })
-    .catch(error => {
-      console.error('Erro:', error);
-    });
-    setTitle('');
-    setDescription('');
-    setIsCompleted(false); // Resetar o checkbox
-    //fetchTasks(); // Atualizar a lista de tarefas
+          'Accept': '*/*',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title,
+          description,
+          isCompleted
+        }),
+      });
+      setTitle('');
+      setDescription('');
+      setIsCompleted(false); // Resetar o checkbox
+      fetchTasks(); // Atualizar a lista de tarefas
+    } catch (error) {
+      console.error('Erro ao criar tarefa:', error);
+    }
   };
 
   return (
@@ -85,13 +79,15 @@ const TaskForm = ({ fetchTasks }) => {
         />
         {errors.description && <p className="error-message">{errors.description}</p>}
         
-        <label htmlFor="isCompleted">Complete</label>
-        <input
-          id="isCompleted"
-          type="checkbox"
-          checked={isCompleted}
-          onChange={(e) => setIsCompleted(e.target.checked)}
-        />
+        <div className="checkbox-container">
+          <label htmlFor="isCompleted">Complete</label>
+          <input
+            id="isCompleted"
+            type="checkbox"
+            checked={isCompleted}
+            onChange={(e) => setIsCompleted(e.target.checked)}
+          />
+        </div>
         
         <button type="submit">Add Task</button>
       </form>
