@@ -6,7 +6,14 @@ const TaskList = () => {
   const [tasks, setTasks] = useState([]);
 
   const fetchTasks = async () => {
-    const response = await axios.get('/api/tasks');
+    const response = await axios.get('https://localhost:56429/api/tasks',
+      {
+        headers: {
+          'accept': '*/*',
+          'Content-Type': 'application/json'
+        }
+      }
+    )
     setTasks(response.data);
   };
 

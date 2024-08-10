@@ -4,6 +4,7 @@ import axios from 'axios';
 const TaskForm = ({ fetchTasks }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [isCompleted, setIsCompleted] = useState(false);
   const [errors, setErrors] = useState({ title: '', description: '' });
 
   const handleSubmit = async (e) => {
@@ -32,10 +33,30 @@ const TaskForm = ({ fetchTasks }) => {
     }
 
     // Enviar dados se válido
-    await axios.post('http://localhost:8080/api/tasks', { title, description });
+    await axios.post(
+      'https://localhost:56429/api/tasks', 
+      {
+        title,
+        description,
+        isCompleted
+      },
+      {
+        headers: {
+          'accept': '*/*',
+          'Content-Type': 'application/json'
+        }
+      }
+    )
+    .then(response => {
+      console.log('Resposta:', response.data);
+    })
+    .catch(error => {
+      console.error('Erro:', error);
+    });
     setTitle('');
     setDescription('');
-    fetchTasks();
+    setIsCompleted(false); // Resetar o checkbox
+    //fetchTasks(); // Atualizar a lista de tarefas
   };
 
   return (
@@ -63,6 +84,14 @@ const TaskForm = ({ fetchTasks }) => {
           required
         />
         {errors.description && <p className="error-message">{errors.description}</p>}
+        
+        <label htmlFor="isCompleted">Complete</label>
+        <input
+          id="isCompleted"
+          type="checkbox"
+          checked={isCompleted}
+          onChange={(e) => setIsCompleted(e.target.checked)}
+        />
         
         <button type="submit">Add Task</button>
       </form>

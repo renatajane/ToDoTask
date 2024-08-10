@@ -3,12 +3,22 @@ import axios from 'axios';
 
 const TaskItem = ({ task, fetchTasks }) => {
   const handleComplete = async () => {
-    await axios.patch(`/api/tasks/${task.id}/complete`);
+    await axios.patch(`https://localhost:56429/api/tasks/${task.id}`,
+      {
+        isCompleted: true
+      },
+      {
+        headers: {
+          'accept': '*/*',
+          'Content-Type': 'application/json'
+        }
+      }
+    )
     fetchTasks();
   };
 
   const handleDelete = async () => {
-    await axios.delete(`/api/tasks/${task.id}`);
+    await axios.delete(`https://localhost:56429/api/tasks/${task.id}`);
     fetchTasks();
   };
 
@@ -16,8 +26,8 @@ const TaskItem = ({ task, fetchTasks }) => {
     <li>
       <h3>{task.title}</h3>
       <p>{task.description}</p>
-      <button onClick={handleComplete} disabled={task.completed}>
-        {task.completed ? 'Completed' : 'Complete'}
+      <button onClick={handleComplete} disabled={task.isCompleted}>
+        {task.isCompleted ? 'Completed' : 'Complete'}
       </button>
       <button onClick={handleDelete}>Delete</button>
     </li>
